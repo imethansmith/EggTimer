@@ -26,9 +26,10 @@ class ViewController: UIViewController {
     @objc func updateCounter() {
         //example functionality
         if counter > 0 {
-            print("\(counter) seconds.")
+            countdownTimerLabel.text = "\(counter) seconds."
             counter -= 1
         }
     }
 
+    @IBOutlet weak var countdownTimerLabel: UILabel!
 }
