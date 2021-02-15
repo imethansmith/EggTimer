@@ -7,12 +7,19 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
+    // Initalise audio output
+    var player: AVAudioPlayer?
+    
+    // Initialise timer and countdown variables
+    var timer = Timer()
     var counter = 60
     var countdownRatio: Double = 1.0
     var currentCountdown: Double = 1.0
-    var timer = Timer()
+    
+    // Initalise default values for egg timer
     let eggTimes = ["Soft": 3, "Medium": 33, "Hard": 720]
     
     @IBAction func hardnessSelected(_ sender: UIButton) {
@@ -45,11 +52,20 @@ class ViewController: UIViewController {
                 countdownProgressBar.progress = 0.0
             }
         } else {
-            // If timer complete, finish countdown
+            // If timer complete, finish countdown and play alarm sound
             timer.invalidate()
+            playSound()
             countdownTimerLabel.text = "Done!"
         }
     }
+    
+    func playSound() {
+        // Egg Timer Alarm Sound
+            let url = Bundle.main.url(forResource: "alarm_sound", withExtension: "mp3")
+            player = try! AVAudioPlayer(contentsOf: url!)
+            player!.play()
+                    
+        }
 
     @IBOutlet weak var countdownProgressBar: UIProgressView!
     
